@@ -13,10 +13,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @Autonomous(name = "Odometry (Blocks to Java)")
 public class Odometry extends LinearOpMode {
 
-  private DcMotor Lb;
-  private DcMotor Lf;
-  private DcMotor Rb;
-  private DcMotor Rf;
+  private DcMotor leftBack;
+  private DcMotor leftFront;
+  private DcMotor rightBack;
+  private DcMotor rightFront;
   private IMU imu;
 
   double tempSpeed;
@@ -39,21 +39,21 @@ public class Odometry extends LinearOpMode {
     PinpointBlocks.reverseEncoders(true, true);
     // sets the number of ticks per mm of linear travel for the odometry pod you are using
     // ticks per unit of the goBILDA 4-Bar Odometry Pod
-    PinpointBlocks.encoderResolution(PinpointBlocks.FourBarOdometryPod(DistanceUnit.INCH), DistanceUnit.INCH);
+    PinpointBlocks.encoderResolution(PinpointBlocks.FourightBackarOdometryPod(DistanceUnit.INCH), DistanceUnit.INCH);
     // not exact
     // Sets the odometry pod positions relative to the point that the odometry computer
     // tracks around.The X pod offset refers to how far sideways from the tracking point
     // the X (forward) odometry pod is. left is positivethe Y Pod offset refers to how far
     // forward from the tracking point the Y (strafe) odometry pod is. Forward increases
     PinpointBlocks.offsets(DistanceUnit.INCH, -5.1, 1.6);
-    Lb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    Lf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    Rb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    Rf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    ((DcMotorEx) Lb).setPositionPIDFCoefficients(5);
-    ((DcMotorEx) Lf).setPositionPIDFCoefficients(5);
-    ((DcMotorEx) Rb).setPositionPIDFCoefficients(5);
-    ((DcMotorEx) Rf).setPositionPIDFCoefficients(5);
+    leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    ((DcMotorEx) leftBack).setPositionPIDFCoefficients(5);
+    ((DcMotorEx) leftFront).setPositionPIDFCoefficients(5);
+    ((DcMotorEx) rightBack).setPositionPIDFCoefficients(5);
+    ((DcMotorEx) rightFront).setPositionPIDFCoefficients(5);
     changeMotorPIDF(1.2, 1.2, 0, 12);
     // Initialize the IMU with non-default settings. To use this block,
     // plug one of the "new IMU.Parameters" blocks into the parameters socket.
@@ -73,10 +73,10 @@ public class Odometry extends LinearOpMode {
    */
   @Override
   public void runOpMode() {
-    Lb = hardwareMap.get(DcMotor.class, "Lb");
-    Lf = hardwareMap.get(DcMotor.class, "Lf");
-    Rb = hardwareMap.get(DcMotor.class, "Rb");
-    Rf = hardwareMap.get(DcMotor.class, "Rf");
+    leftBack = hardwareMap.get(DcMotor.class, "leftBack");
+    leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+    rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+    rightFront = hardwareMap.get(DcMotor.class, "rightFront");
     imu = hardwareMap.get(IMU.class, "imu");
 
     initialize();
@@ -93,20 +93,20 @@ public class Odometry extends LinearOpMode {
    * Describe this function...
    */
   private void move(int speed) {
-    Lb.setPower(-speed);
-    Lf.setPower(-speed);
-    Rb.setPower(speed);
-    Rf.setPower(speed);
+    leftBack.setPower(-speed);
+    leftFront.setPower(-speed);
+    rightBack.setPower(speed);
+    rightFront.setPower(speed);
   }
 
   /**
    * Describe this function...
    */
   private void strafing(int speed) {
-    Lb.setPower(-speed);
-    Lf.setPower(speed);
-    Rb.setPower(-speed);
-    Rf.setPower(speed);
+    leftBack.setPower(-speed);
+    leftFront.setPower(speed);
+    rightBack.setPower(-speed);
+    rightFront.setPower(speed);
   }
 
   /**
@@ -121,10 +121,10 @@ public class Odometry extends LinearOpMode {
    * Describe this function...
    */
   private void changeMotorPIDF(double p, double i, int d, int f) {
-    ((DcMotorEx) Lb).setVelocityPIDFCoefficients(p, i, d, f);
-    ((DcMotorEx) Lf).setVelocityPIDFCoefficients(p, i, d, f);
-    ((DcMotorEx) Rb).setVelocityPIDFCoefficients(p, i, d, f);
-    ((DcMotorEx) Rf).setVelocityPIDFCoefficients(p, i, d, f);
+    ((DcMotorEx) leftBack).setVelocityPIDFCoefficients(p, i, d, f);
+    ((DcMotorEx) leftFront).setVelocityPIDFCoefficients(p, i, d, f);
+    ((DcMotorEx) rightBack).setVelocityPIDFCoefficients(p, i, d, f);
+    ((DcMotorEx) rightFront).setVelocityPIDFCoefficients(p, i, d, f);
   }
 
   /**
@@ -146,10 +146,10 @@ public class Odometry extends LinearOpMode {
   
   // This doesnt work yet
   private void IMUTurn(int angle, double turnSpeed) {
-    Lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     max = angle + 0.5;
     min = angle - 0.5;
     if (getAngle() < min || getAngle() > max) {
@@ -185,10 +185,10 @@ public class Odometry extends LinearOpMode {
 
   private void forward(int dist, double speed) {
     tempSpeed = speed;
-    Lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     // Angle from 0 to 180 is turning left from the 0 point, Angle from 0 to -180 is turning right from the 0 point
     telemetry2();
     max = dist + 0.5;
@@ -238,10 +238,10 @@ public class Odometry extends LinearOpMode {
    */
   private void strafe(int dist, double speed) {
     tempSpeed = speed;
-    Lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     // Angle from 0 to 180 is turning left from the 0 point, Angle from 0 to -180 is turning right from the 0 point
     telemetry2();
     max = dist + 0.5;

@@ -254,7 +254,7 @@ public class MecanumDrive {
         public final IMU imu;
 
 
-        private double lastLeftFrontPos, lastLeftBackPos, lastRightBackPos, lastRightFrontPos;
+        private double lastleftFrontPos, lastLeftBackPos, lastRightBackPos, lastRightFrontPos;
         private Rotation2d lastHeading;
         private boolean initialized;
 
@@ -296,7 +296,7 @@ public class MecanumDrive {
                 initialized = true;
 
 
-                lastLeftFrontPos = leftFrontPosVel.position;
+                lastleftFrontPos = leftFrontPosVel.position;
                 lastLeftBackPos = leftBackPosVel.position;
                 lastRightBackPos = rightBackPosVel.position;
                 lastRightFrontPos = rightFrontPosVel.position;
@@ -315,7 +315,7 @@ public class MecanumDrive {
             double headingDelta = heading.minus(lastHeading);
             Twist2dDual<Time> twist = kinematics.forward(new MecanumKinematics.WheelIncrements<>(
                     new DualNum<Time>(new double[]{
-                            (leftFrontPosVel.position - lastLeftFrontPos),
+                            (leftFrontPosVel.position - lastleftFrontPos),
                             leftFrontPosVel.velocity,
                     }).times(PARAMS.inPerTick),
                     new DualNum<Time>(new double[]{
@@ -333,7 +333,7 @@ public class MecanumDrive {
             ));
 
 
-            lastLeftFrontPos = leftFrontPosVel.position;
+            lastleftFrontPos = leftFrontPosVel.position;
             lastLeftBackPos = leftBackPosVel.position;
             lastRightBackPos = rightBackPosVel.position;
             lastRightFrontPos = rightFrontPosVel.position;

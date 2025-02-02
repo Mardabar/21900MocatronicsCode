@@ -16,10 +16,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @Autonomous(name = "LeftAuto", preselectTeleOp = "StraferOpV3")
 public class LeftAuto extends LinearOpMode { 
   
-  private DcMotor Lf;
-  private DcMotor Rf;
-  private DcMotor Lb;
-  private DcMotor Rb;
+  private DcMotor leftFront;
+  private DcMotor rightFront;
+  private DcMotor leftBack;
+  private DcMotor rightBack;
   private DcMotor pickmeup;
   private DcMotor Llin;
   private DcMotor Rlin;
@@ -29,41 +29,39 @@ public class LeftAuto extends LinearOpMode {
   
   private Servo imaTouchU;
   private Servo ankel;
-  
-  double IMUpower = .5;
   double armSpeed = .9;
   double power = .4;
   float yeeyaw;
   
 
   public void initialize() {
-   Rf.setDirection(DcMotor.Direction.FORWARD);
-   Rb.setDirection(DcMotor.Direction.FORWARD);
-   Lb.setDirection(DcMotor.Direction.FORWARD);
-   Lf.setDirection(DcMotor.Direction.FORWARD);
-   Rf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-   Rb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-   Lb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-   Lf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+   rightFront.setDirection(DcMotor.Direction.FORWARD);
+   rightBack.setDirection(DcMotor.Direction.FORWARD);
+   leftBack.setDirection(DcMotor.Direction.FORWARD);
+   leftFront.setDirection(DcMotor.Direction.FORWARD);
+   rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+   rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+   leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+   leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
    imu.resetYaw();
    
     }
   private void Forward(int _targetPos) {
-    Rb.setTargetPosition(Rb.getCurrentPosition() + _targetPos);
-    Rf.setTargetPosition(Rf.getCurrentPosition() + _targetPos);
-    Lb.setTargetPosition(Lb.getCurrentPosition() - _targetPos);
-    Lf.setTargetPosition(Lf.getCurrentPosition() - _targetPos);
-    Lb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lb.setPower(power);
-    Lf.setPower(power);
-    Rb.setPower(power);
-    Rf.setPower(power);
-    while (Lb.isBusy()) {
+    rightBack.setTargetPosition(rightBack.getCurrentPosition() + _targetPos);
+    rightFront.setTargetPosition(rightFront.getCurrentPosition() + _targetPos);
+    leftBack.setTargetPosition(leftBack.getCurrentPosition() - _targetPos);
+    leftFront.setTargetPosition(leftFront.getCurrentPosition() - _targetPos);
+    leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftBack.setPower(power);
+    leftFront.setPower(power);
+    rightBack.setPower(power);
+    rightFront.setPower(power);
+    while (leftBack.isBusy()) {
     
-    telemetry.addData("RbCurrentPosition",Rb.getTargetPosition());
+    telemetry.addData("rightBackCurrentPosition",rightBack.getTargetPosition());
     telemetry.update();
     }
   }
@@ -71,45 +69,45 @@ public class LeftAuto extends LinearOpMode {
 // Stops and resets the encoder value stored in the motor
 
   private void Left(int _targetPos) {
-    Lb.setTargetPosition(Lb.getCurrentPosition() - _targetPos);
-    Lf.setTargetPosition(Lf.getCurrentPosition() + _targetPos);
-    Rb.setTargetPosition(Rb.getCurrentPosition() - _targetPos);
-    Rf.setTargetPosition(Rf.getCurrentPosition() + _targetPos);
-    Lb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lb.setPower(power);
-    Lf.setPower(power);
-    Rb.setPower(power);
-    Rf.setPower(power);
-    while (Lb.isBusy()) {
+    leftBack.setTargetPosition(leftBack.getCurrentPosition() - _targetPos);
+    leftFront.setTargetPosition(leftFront.getCurrentPosition() + _targetPos);
+    rightBack.setTargetPosition(rightBack.getCurrentPosition() - _targetPos);
+    rightFront.setTargetPosition(rightFront.getCurrentPosition() + _targetPos);
+    leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftBack.setPower(power);
+    leftFront.setPower(power);
+    rightBack.setPower(power);
+    rightFront.setPower(power);
+    while (leftBack.isBusy()) {
 
-      telemetry.addData("RbCurrentPosition",Rb.getTargetPosition());
+      telemetry.addData("rightBackCurrentPosition",rightBack.getTargetPosition());
     telemetry.update();
     }
   }
   
   private void Right(int _targetPos) {
     yeeyaw = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-    Lb.setTargetPosition(Lb.getCurrentPosition() + _targetPos - 60);
-    Lf.setTargetPosition(Lf.getCurrentPosition() - _targetPos);
-    Rb.setTargetPosition(Rb.getCurrentPosition() + _targetPos - 60);
-    Rf.setTargetPosition(Rf.getCurrentPosition() - _targetPos);
-    Lb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lb.setPower(power - yeeyaw / 15);
-    Lf.setPower(power + yeeyaw / 15);
-    Rb.setPower(power - yeeyaw / 15);
-    Rf.setPower(power + yeeyaw / 15);
-    while (Lb.isBusy()) {
+    leftBack.setTargetPosition(leftBack.getCurrentPosition() + _targetPos - 60);
+    leftFront.setTargetPosition(leftFront.getCurrentPosition() - _targetPos);
+    rightBack.setTargetPosition(rightBack.getCurrentPosition() + _targetPos - 60);
+    rightFront.setTargetPosition(rightFront.getCurrentPosition() - _targetPos);
+    leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftBack.setPower(power - yeeyaw / 15);
+    leftFront.setPower(power + yeeyaw / 15);
+    rightBack.setPower(power - yeeyaw / 15);
+    rightFront.setPower(power + yeeyaw / 15);
+    while (leftBack.isBusy()) {
       yeeyaw = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-      Lb.setPower(power - yeeyaw / 15);
-      Lf.setPower(power + yeeyaw / 15);
-      Rb.setPower(power - yeeyaw / 15);
-      Rf.setPower(power + yeeyaw / 15);
+      leftBack.setPower(power - yeeyaw / 15);
+      leftFront.setPower(power + yeeyaw / 15);
+      rightBack.setPower(power - yeeyaw / 15);
+      rightFront.setPower(power + yeeyaw / 15);
       telemetry.addData("Angle: ", yeeyaw);
       telemetry.update();
     }
@@ -117,65 +115,65 @@ public class LeftAuto extends LinearOpMode {
 
   
   private void TurnRightC(int _targetPos) {
-    Lb.setTargetPosition(Lb.getCurrentPosition() - _targetPos); 
-    Lf.setTargetPosition(Lf.getCurrentPosition() - _targetPos);
-    Rb.setTargetPosition(Rb.getCurrentPosition() - _targetPos);
-    Rf.setTargetPosition(Rf.getCurrentPosition() - _targetPos);
-    Lb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lb.setPower(power);
-    Lf.setPower(power);
-    Rb.setPower(power);
-    Rf.setPower(power);
-    while (Lb.isBusy()) {
-      telemetry.addData("RbCurrentPosition",Rb.getTargetPosition());
+    leftBack.setTargetPosition(leftBack.getCurrentPosition() - _targetPos); 
+    leftFront.setTargetPosition(leftFront.getCurrentPosition() - _targetPos);
+    rightBack.setTargetPosition(rightBack.getCurrentPosition() - _targetPos);
+    rightFront.setTargetPosition(rightFront.getCurrentPosition() - _targetPos);
+    leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftBack.setPower(power);
+    leftFront.setPower(power);
+    rightBack.setPower(power);
+    rightFront.setPower(power);
+    while (leftBack.isBusy()) {
+      telemetry.addData("rightBackCurrentPosition",rightBack.getTargetPosition());
       telemetry.update();
     }
   }
   
     private void TurnLeftC(int _targetPos) {
-    Lb.setTargetPosition(Lb.getCurrentPosition() + _targetPos); 
-    Lf.setTargetPosition(Lf.getCurrentPosition() + _targetPos);
-    Rb.setTargetPosition(Rb.getCurrentPosition() + _targetPos);
-    Rf.setTargetPosition(Rf.getCurrentPosition() + _targetPos);
-    Lb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Rf.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    Lb.setPower(power);
-    Lf.setPower(power);
-    Rb.setPower(power);
-    Rf.setPower(power);
-    while (Lb.isBusy()) {
-      telemetry.addData("RbCurrentPosition",Rb.getTargetPosition());
+    leftBack.setTargetPosition(leftBack.getCurrentPosition() + _targetPos); 
+    leftFront.setTargetPosition(leftFront.getCurrentPosition() + _targetPos);
+    rightBack.setTargetPosition(rightBack.getCurrentPosition() + _targetPos);
+    rightFront.setTargetPosition(rightFront.getCurrentPosition() + _targetPos);
+    leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    leftBack.setPower(power);
+    leftFront.setPower(power);
+    rightBack.setPower(power);
+    rightFront.setPower(power);
+    while (leftBack.isBusy()) {
+      telemetry.addData("rightBackCurrentPosition",rightBack.getTargetPosition());
       telemetry.update();
     }
   }
   
-  private void WallForward(double dist) {
-    Lb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+  private void WalleftFrontorward(double dist) {
+    leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
       while (Sensor.getDistance(DistanceUnit.CM) > dist){
-        Lb.setPower(-.25);
-        Lf.setPower(.25);
-        Rb.setPower(-.25);
-        Rf.setPower(.25);
+        leftBack.setPower(-.25);
+        leftFront.setPower(.25);
+        rightBack.setPower(-.25);
+        rightFront.setPower(.25);
         telemetry.addData("Sensor", Sensor.getDeviceName() );
         telemetry.addData("Distance (cm)", Sensor.getDistance(DistanceUnit.CM));
         telemetry.update();
       } 
-          Lb.setPower(0);
-          Lf.setPower(0);
-          Rb.setPower(0);
-          Rf.setPower(0);
-          Lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-          Lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-          Rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-          Rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+          leftBack.setPower(0);
+          leftFront.setPower(0);
+          rightBack.setPower(0);
+          rightFront.setPower(0);
+          leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+          leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+          rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+          rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
   
   private void ArmIn(int _targetPos) {
@@ -275,68 +273,68 @@ public class LeftAuto extends LinearOpMode {
   private void TurnLeft(double turns) {
     imu.resetYaw();
     yeeyaw = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-    Lb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
   while (yeeyaw < 50 * Math.pow(turns, 1.5)) {
     yeeyaw = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-    Lb.setPower(-power * -1.2);
-    Lf.setPower(-power * -1.2);
-    Rb.setPower(-power * -1.2);
-    Rf.setPower(-power * -1.2);
+    leftBack.setPower(-power * -1.2);
+    leftFront.setPower(-power * -1.2);
+    rightBack.setPower(-power * -1.2);
+    rightFront.setPower(-power * -1.2);
     telemetry.addLine("fast turn: " + yeeyaw);
     telemetry.update();
   }  
   if (yeeyaw < 90 * turns) {
     while (yeeyaw < 90 * turns) {
       yeeyaw = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-      Lb.setPower(-power * -0.4);
-      Lf.setPower(-power * -0.4);
-      Rb.setPower(-power * -0.4);
-      Rf.setPower(-power * -0.4);
+      leftBack.setPower(-power * -0.4);
+      leftFront.setPower(-power * -0.4);
+      rightBack.setPower(-power * -0.4);
+      rightFront.setPower(-power * -0.4);
       telemetry.addLine("slow turn: " + yeeyaw);
       telemetry.update();
     }
   }
-    Lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     imu.resetYaw();
   }
   
   private void TurnRight(double turns) {
     imu.resetYaw();
     yeeyaw = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-    Lb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     while (yeeyaw > -50 * Math.pow(turns, 1.5)) {
       yeeyaw = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-      Lb.setPower(-power * 1.2);
-      Lf.setPower(-power * 1.2);
-      Rb.setPower(-power * 1.2);
-      Rf.setPower(-power * 1.2);
+      leftBack.setPower(-power * 1.2);
+      leftFront.setPower(-power * 1.2);
+      rightBack.setPower(-power * 1.2);
+      rightFront.setPower(-power * 1.2);
       telemetry.addLine("fast turn: " + yeeyaw);
       telemetry.update();
     }
     if (yeeyaw > -90 * turns) {
       while (yeeyaw > -90 * turns) {
         yeeyaw = imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-        Lb.setPower(-power * 0.4);
-        Lf.setPower(-power * 0.4);
-        Rb.setPower(-power * 0.4);
-        Rf.setPower(-power * 0.4);
+        leftBack.setPower(-power * 0.4);
+        leftFront.setPower(-power * 0.4);
+        rightBack.setPower(-power * 0.4);
+        rightFront.setPower(-power * 0.4);
         telemetry.addLine("slow turn: " + yeeyaw);
         telemetry.update();
       }
     }
-    Lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     imu.resetYaw();
   }
   
@@ -348,10 +346,10 @@ public class LeftAuto extends LinearOpMode {
     int maxRange;
     int armSpeed;
     
-    Rb = hardwareMap.get(DcMotor.class, "Rb");
-    Rf = hardwareMap.get(DcMotor.class, "Rf");
-    Lb = hardwareMap.get(DcMotor.class, "Lb");
-    Lf = hardwareMap.get(DcMotor.class, "Lf");
+    rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+    rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+    leftBack = hardwareMap.get(DcMotor.class, "leftBack");
+    leftFront = hardwareMap.get(DcMotor.class, "leftFront");
     Llin = hardwareMap.get(DcMotor.class, "Llin");
     Rlin = hardwareMap.get(DcMotor.class, "Rlin");
     rotat = hardwareMap.get(DcMotor.class, "rotat");
@@ -364,18 +362,18 @@ public class LeftAuto extends LinearOpMode {
     
     imu = hardwareMap.get(IMU.class, "imu");
     
-    Lb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    Lf.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    Rb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    Rf.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     Llin.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     Rlin.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     rotat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     
-    Lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    Rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     Llin.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     Rlin.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     rotat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -416,7 +414,7 @@ public class LeftAuto extends LinearOpMode {
     SlidesDown(6250);
     sleep(300);
     Forward(756);
-    WallForward(16); 
+    WalleftFrontorward(16); 
     ArmDown(350);
     ClampClaw(.7, 0);
     MoveClaw(.567, 0);
