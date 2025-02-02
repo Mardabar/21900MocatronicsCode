@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-
+// i feel so sigma
 @TeleOp(name = "StraferOpV3")
 public class StraferOpV3 extends LinearOpMode {
 
