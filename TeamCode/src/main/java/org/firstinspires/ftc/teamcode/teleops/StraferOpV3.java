@@ -12,10 +12,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp(name = "StraferOpV3")
 public class StraferOpV3 extends LinearOpMode {
 
-  private DcMotor Lf;
-  private DcMotor Rf;
-  private DcMotor Lb;
-  private DcMotor Rb;
+  private DcMotor leftFront;
+  private DcMotor rightFront;
+  private DcMotor leftBack;
+  private DcMotor rightBack;
   private DcMotor pickMeUp;
   private DcMotor Llin;
   private DcMotor Rlin;
@@ -54,10 +54,10 @@ public class StraferOpV3 extends LinearOpMode {
    */
   @Override
   public void runOpMode() {
-    Lf = hardwareMap.get(DcMotor.class, "Lf");
-    Rf = hardwareMap.get(DcMotor.class, "Rf");
-    Lb = hardwareMap.get(DcMotor.class, "Lb");
-    Rb = hardwareMap.get(DcMotor.class, "Rb");
+    leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+    rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+    leftBack = hardwareMap.get(DcMotor.class, "leftBack");
+    rightBack = hardwareMap.get(DcMotor.class, "rightBack");
     pickMeUp = hardwareMap.get(DcMotor.class, "pickmeup");
     Llin = hardwareMap.get(DcMotor.class, "Llin");
     Rlin = hardwareMap.get(DcMotor.class, "Rlin");
@@ -71,19 +71,19 @@ public class StraferOpV3 extends LinearOpMode {
     
     imu = hardwareMap.get(IMU.class, "imu");
     
-    Lf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    Rf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    Lb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    Rb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     pickMeUp.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     Llin.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     Rlin.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     rotat.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     
-    Lf.setDirection(DcMotor.Direction.FORWARD);
-    Rf.setDirection(DcMotor.Direction.REVERSE);
-    Lb.setDirection(DcMotor.Direction.FORWARD);
-    Rb.setDirection(DcMotor.Direction.REVERSE);
+    leftFront.setDirection(DcMotor.Direction.FORWARD);
+    rightFront.setDirection(DcMotor.Direction.REVERSE);
+    leftBack.setDirection(DcMotor.Direction.FORWARD);
+    rightBack.setDirection(DcMotor.Direction.REVERSE);
     pickMeUp.setDirection(DcMotor.Direction.REVERSE);
     Llin.setDirection(DcMotor.Direction.REVERSE);
     Rlin.setDirection(DcMotor.Direction.FORWARD);
@@ -116,12 +116,12 @@ public class StraferOpV3 extends LinearOpMode {
       if (!bigTurn) {
         // The Y axis of a joystick ranges from -1 in its topmost position to +1 in its bottommost position.
         // We negate this value so that the topmost position corresponds to maximum forward power.
-        Lf.setPower(TurnSpeed * -gamepad1.right_stick_x * RobotSpeed + RobotSpeed * -gamepad1.left_stick_x + RobotSpeed * gamepad1.left_stick_y);
-        Rf.setPower(TurnSpeed * gamepad1.right_stick_x * RobotSpeed + RobotSpeed * gamepad1.left_stick_x + RobotSpeed * gamepad1.left_stick_y);
+        leftFront.setPower(TurnSpeed * -gamepad1.right_stick_x * RobotSpeed + RobotSpeed * -gamepad1.left_stick_x + RobotSpeed * gamepad1.left_stick_y);
+        rightFront.setPower(TurnSpeed * gamepad1.right_stick_x * RobotSpeed + RobotSpeed * gamepad1.left_stick_x + RobotSpeed * gamepad1.left_stick_y);
         // The Y axis of a joystick ranges from -1 in its topmost position to +1 in its bottommost position.
         // We negate this value so that the topmost position corresponds to maximum forward power.
-        Lb.setPower(TurnSpeed * -gamepad1.right_stick_x * RobotSpeed + RobotSpeed * gamepad1.left_stick_x + RobotSpeed * gamepad1.left_stick_y);
-        Rb.setPower(TurnSpeed * gamepad1.right_stick_x * RobotSpeed + RobotSpeed * -gamepad1.left_stick_x + RobotSpeed * gamepad1.left_stick_y);
+        leftBack.setPower(TurnSpeed * -gamepad1.right_stick_x * RobotSpeed + RobotSpeed * gamepad1.left_stick_x + RobotSpeed * gamepad1.left_stick_y);
+        rightBack.setPower(TurnSpeed * gamepad1.right_stick_x * RobotSpeed + RobotSpeed * -gamepad1.left_stick_x + RobotSpeed * gamepad1.left_stick_y);
       }
       
       // When pressing right trigger, the robot goes into turbo mode.
@@ -376,10 +376,10 @@ public class StraferOpV3 extends LinearOpMode {
         togNum -= 90;
         enlarge = true;
       }
-      Lf.setPower(-angularTurn);
-      Rf.setPower(angularTurn);
-      Lb.setPower(-angularTurn);
-      Rb.setPower(angularTurn);
+      leftFront.setPower(-angularTurn);
+      rightFront.setPower(angularTurn);
+      leftBack.setPower(-angularTurn);
+      rightBack.setPower(angularTurn);
     }
   }
   
@@ -394,10 +394,10 @@ public class StraferOpV3 extends LinearOpMode {
         togNum += 90;
         enlarge = true;
       }
-      Lf.setPower(angularTurn);
-      Rf.setPower(-angularTurn);
-      Lb.setPower(angularTurn);
-      Rb.setPower(-angularTurn);
+      leftFront.setPower(angularTurn);
+      rightFront.setPower(-angularTurn);
+      leftBack.setPower(angularTurn);
+      rightBack.setPower(-angularTurn);
     }
   }
   
@@ -407,10 +407,10 @@ public class StraferOpV3 extends LinearOpMode {
     double angularTurn = 1;
     
     while (getAngle() < togNum) {
-      Lf.setPower(-0.08 * angularTurn);
-      Rf.setPower(0.08 * angularTurn);
-      Lb.setPower(angularTurn);
-      Rb.setPower(-angularTurn);
+      leftFront.setPower(-0.08 * angularTurn);
+      rightFront.setPower(0.08 * angularTurn);
+      leftBack.setPower(angularTurn);
+      rightBack.setPower(-angularTurn);
     }
   }
   
@@ -420,10 +420,10 @@ public class StraferOpV3 extends LinearOpMode {
     double angularTurn = 1;
     
     while (getAngle() > togNum) {
-      Lf.setPower(0.08 * angularTurn);
-      Rf.setPower(-0.08 * angularTurn);
-      Lb.setPower(-angularTurn);
-      Rb.setPower(angularTurn);
+      leftFront.setPower(0.08 * angularTurn);
+      rightFront.setPower(-0.08 * angularTurn);
+      leftBack.setPower(-angularTurn);
+      rightBack.setPower(angularTurn);
     }
   }
   
