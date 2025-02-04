@@ -2,14 +2,14 @@ package org.firstinspires.ftc.teamcode.drive;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.localization.TwoTrackingWheelLocalizer;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.util.Encoder;
-
 import java.util.Arrays;
+
+/*
+
 import java.util.List;
 
 /*
@@ -32,7 +32,7 @@ import java.util.List;
  *    |              |
  *    \--------------/
  *
- */
+ *
 public class TwoWheelTrackingLocalizer extends TwoTrackingWheelLocalizer {
     public static double TICKS_PER_REV = 0;
     public static double WHEEL_RADIUS = 2; // in
@@ -101,3 +101,4 @@ public class TwoWheelTrackingLocalizer extends TwoTrackingWheelLocalizer {
         );
     }
 }
+*/
