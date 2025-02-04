@@ -116,8 +116,8 @@ public class MecanumDrive {
 
 
         // TODO: reverse motor directions if needed
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+       // leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+       // leftBack.setDirection(DcMotorSimple.Direction.REVERSE); 
 
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
@@ -212,7 +212,7 @@ public class MecanumDrive {
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
                 RevHubOrientationOnRobot.LogoFacingDirection.UP;
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
 
 
         // drive model parameters
