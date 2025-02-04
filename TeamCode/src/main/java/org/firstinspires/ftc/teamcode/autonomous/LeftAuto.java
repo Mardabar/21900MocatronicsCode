@@ -152,7 +152,7 @@ public class LeftAuto extends LinearOpMode {
     }
   }
   
-  private void WalleftFrontorward(double dist) {
+  private void WalleftFrontForward(double dist) {
     leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -414,7 +414,7 @@ public class LeftAuto extends LinearOpMode {
     SlidesDown(6250);
     sleep(300);
     Forward(756);
-    WalleftFrontorward(16); 
+    WalleftFrontForward(16);
     ArmDown(350);
     ClampClaw(.7, 0);
     MoveClaw(.567, 0);

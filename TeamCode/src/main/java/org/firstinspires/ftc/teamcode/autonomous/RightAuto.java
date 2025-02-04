@@ -66,7 +66,7 @@ public class RightAuto extends LinearOpMode {
     }
   }
   
-  private void WalleftFrontorward(double dist) {
+  private void WalleftFrontForward(double dist) {
     while (sensor.getDistance(DistanceUnit.CM) > dist + 15){
       leftBack.setPower(-power);
       leftFront.setPower(-power);
@@ -493,7 +493,7 @@ while (opModeIsActive()) {
     //ArmIn(990);
     TurnLeft(1.975);
     ClawSet();
-    WalleftFrontorward(30);
+    WalleftFrontForward(30);
     OpenClaw();
     power = 0.2;
     Forward(195);
@@ -542,7 +542,7 @@ while (opModeIsActive()) {
     // sleep(70);
     // Forward(-800);
     // Right(2850);
-    //WalleftFrontorward(30);
+    //WalleftFrontForward(30);
     // sleep(200);
     // CloseClaw();
     // sleep(200);
@@ -553,7 +553,7 @@ while (opModeIsActive()) {
     // TurnRight(1.02);
     // TurnRight(1.02);
     // Right(-2050);
-    // WalleftFrontorward(12);
+    // WalleftFrontForward(12);
     // ArmOut(900);
     // ArmIn(870);
     // OpenClaw();

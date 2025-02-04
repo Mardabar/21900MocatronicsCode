@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous
+/* package org.firstinspires.ftc.teamcode.autonomous
 
 import com.acmerobotics.roadrunner.Pose2d
 import com.acmerobotics.roadrunner.Vector2d
@@ -13,13 +13,13 @@ import org.firstinspires.ftc.teamcode.roadrunner.PinpointDrive
 class LeftOneSpecimenPark : OpMode() {
     val beginPose = Pose2d(30.5, 66.0, -Math.PI / 2)
     lateinit var drive: PinpointDrive
-    lateinit var scoringArm: ScoringArm
-    lateinit var specimenClaw: SpecimenClaw
+    lateinit var scoringArm: scoringArm
+    lateinit var specimenClaw: specimenClaw
 
     override fun init() {
-        specimenClaw = SpecimenClaw(hardwareMap)
+        specimenClaw = specimenClaw(hardwareMap)
         drive = PinpointDrive(hardwareMap, beginPose)
-        scoringArm = ScoringArm(hardwareMap)
+        scoringArm = scoringArm(hardwareMap)
     }
 
     override fun start() {
@@ -59,3 +59,4 @@ class LeftOneSpecimenPark : OpMode() {
     }
 }
 
+*/
