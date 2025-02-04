@@ -116,8 +116,8 @@ public class MecanumDrive {
 
 
         // TODO: reverse motor directions if needed
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+       // leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+       // leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
@@ -212,18 +212,18 @@ public class MecanumDrive {
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
                 RevHubOrientationOnRobot.LogoFacingDirection.UP;
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
 
 
         // drive model parameters
         public double inPerTick = 1; // SparkFun OTOS Note: you can probably leave this at 1
-        public double lateralInPerTick = 0.77722530;
-        public double trackWidthTicks = 12.94461997403653;
+        public double lateralInPerTick = .8;
+        public double trackWidthTicks = 9.685526281805368;
 
 
         // feedforward parameters (in tick units)
-        public double kS = 1.2295755722101251;
-        public double kV =  0.17526279589814117;
+        public double kS = 1.624191912189736;
+        public double kV = 0.18341322461809637;
         public double kA = 0.0001;
 
 
