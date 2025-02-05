@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.autonomous;
-package org.firstinspires.ftc.teamcode.teleops;
+
 import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -11,25 +11,18 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
-
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-
 //RR-specific imports
-import androidx.annotation.NonNull;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-
-import com.acmerobotics.roadrunner.Pose2d;
 
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.Vector2d;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.teamcode.teleops.StraferOpV3;
+
+
+import java.lang.Math;
 
 @Config
 @Autonomous(name = "DavidRightAuto", group = "autonomous", preselectTeleOp = "StraferOpV3")
@@ -300,6 +293,8 @@ public abstract class DavidRightAuto extends LinearOpMode {
         ClawMove ankel = new ClawMove(hardwareMap);
 
     }
+    MecanumDrive drive;
+    Pose2d initialPose;
     // vision here that outputs position
     int visionOutputPosition = 1;
 
@@ -329,7 +324,7 @@ public abstract class DavidRightAuto extends LinearOpMode {
             .waitSeconds(3);
     Action trajectoryActionCloseOut = tab1.endTrajectory().fresh()
             .strafeTo(new Vector2d(48, 12))
-            .build();
+            .build(); /*
 
     // actions that need to happen on init; for instance, a claw tightening.
         Actions.runBlocking(claw.closeClaw());
@@ -365,10 +360,10 @@ public abstract class DavidRightAuto extends LinearOpMode {
                                 lift.liftDown(),
     trajectoryActionCloseOut
                 )
-                        );
+                        ); */
 }
-}
-}
+
+
 
 
 
