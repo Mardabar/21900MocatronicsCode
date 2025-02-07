@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.roadrunner;
 
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.ftc.FlightRecorder;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriver;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -22,6 +25,8 @@ import org.firstinspires.ftc.teamcode.roadrunner.messages.PoseMessage;
  * Unless otherwise noted, comments are from Gobilda
  */
 public class PinpointDrive extends MecanumDrive {
+ //    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(1.2, 1.2, 3, 12);
+
     public static Params PARAMS = new Params();
     public GoBildaPinpointDriverRR pinpoint;
     private Pose2d lastPinpointPose = pose;
@@ -111,7 +116,7 @@ public class PinpointDrive extends MecanumDrive {
          */
         //These are tuned for 3110-0002-0001 Product Insight #1
         // RR localizer note: These units are inches, presets are converted from mm (which is why they are inexact)
-        public double xOffset = -9;
+        public double xOffset = -8.5;
         public double yOffset = 2;
 
 
@@ -124,9 +129,9 @@ public class PinpointDrive extends MecanumDrive {
         RR LOCALIZER NOTE: this is ticks per MILLIMETER, NOT inches per tick.
         This value should be more than one; the value for the Gobilda 4 Bar Pod is approximately 20.
         To get this value from inPerTick, first convert the value to millimeters (multiply by 25.4)
-        and then take its inverse (one over the value) ooga booga
+        and then take its inverse (one over the value)
          */
-        public double encoderResolution = GoBildaPinpointDriverRR.goBILDA_4_BAR_POD;
+        public double encoderResolution = GoBildaPinpointDriverRR.goBILDA_SWINGARM_POD;
 
 
         /*

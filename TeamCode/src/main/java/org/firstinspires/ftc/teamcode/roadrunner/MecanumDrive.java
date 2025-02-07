@@ -116,8 +116,8 @@ public class MecanumDrive {
 
 
         // TODO: reverse motor directions if needed
-       // leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-       // leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
@@ -212,18 +212,18 @@ public class MecanumDrive {
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
                 RevHubOrientationOnRobot.LogoFacingDirection.UP;
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
 
 
         // drive model parameters
         public double inPerTick = 1; // SparkFun OTOS Note: you can probably leave this at 1
         public double lateralInPerTick = .8;
-        public double trackWidthTicks = 9.685526281805368;
+        public double trackWidthTicks = 13.5; //19.354729981661055;
 
 
         // feedforward parameters (in tick units)
-        public double kS = 1.624191912189736;
-        public double kV = 0.18341322461809637;
+        public double kS = 1.050898172775423;
+        public double kV = 0.11971879271670333;
         public double kA = 0.0001;
 
 
@@ -239,9 +239,9 @@ public class MecanumDrive {
 
 
         // path controller gains
-        public double axialGain = 8; //6.0
-        public double lateralGain = 8; //6.0
-        public double headingGain = 10; //3.0 // shared with turn
+        public double axialGain = 8; //8.0
+        public double lateralGain = 8; //8.0
+        public double headingGain = 10; //10.0 // shared with turn
 
 
         public double axialVelGain = 0.0;
@@ -254,7 +254,7 @@ public class MecanumDrive {
         public final IMU imu;
 
 
-        private double lastleftFrontPos, lastLeftBackPos, lastRightBackPos, lastRightFrontPos;
+        private double lastLeftFrontPos, lastLeftBackPos, lastRightBackPos, lastRightFrontPos;
         private Rotation2d lastHeading;
         private boolean initialized;
 
@@ -296,7 +296,7 @@ public class MecanumDrive {
                 initialized = true;
 
 
-                lastleftFrontPos = leftFrontPosVel.position;
+                lastLeftFrontPos = leftFrontPosVel.position;
                 lastLeftBackPos = leftBackPosVel.position;
                 lastRightBackPos = rightBackPosVel.position;
                 lastRightFrontPos = rightFrontPosVel.position;
@@ -315,7 +315,7 @@ public class MecanumDrive {
             double headingDelta = heading.minus(lastHeading);
             Twist2dDual<Time> twist = kinematics.forward(new MecanumKinematics.WheelIncrements<>(
                     new DualNum<Time>(new double[]{
-                            (leftFrontPosVel.position - lastleftFrontPos),
+                            (leftFrontPosVel.position - lastLeftFrontPos),
                             leftFrontPosVel.velocity,
                     }).times(PARAMS.inPerTick),
                     new DualNum<Time>(new double[]{
@@ -333,7 +333,7 @@ public class MecanumDrive {
             ));
 
 
-            lastleftFrontPos = leftFrontPosVel.position;
+            lastLeftFrontPos = leftFrontPosVel.position;
             lastLeftBackPos = leftBackPosVel.position;
             lastRightBackPos = rightBackPosVel.position;
             lastRightFrontPos = rightFrontPosVel.position;
