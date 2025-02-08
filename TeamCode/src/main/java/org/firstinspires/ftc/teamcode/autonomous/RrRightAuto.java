@@ -2,10 +2,11 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -14,18 +15,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.roadrunner.PinpointDrive;
 
-import org.firstinspires.ftc.teamcode.roadrunner.PinpointDrive;
 
-
-@Autonomous(name = "RoadRunnerExample", group = "autonomous")
-public class RoadRunnerExample extends LinearOpMode {
+@Autonomous(name = "RrRightAuto", group = "autonomous")
+public class RrRightAuto extends LinearOpMode {
 
     public class LiftSlides {
         private DcMotorEx Llin;
@@ -286,38 +282,96 @@ public class RoadRunnerExample extends LinearOpMode {
     }
 
     public void runOpMode() {
-        // Initialize PinpointDrive (customized for PIDF control)
-        //  PinpointDrive drive = new PinpointDrive(hardwareMap);
-
-        // Slides instance
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
+        PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
         LiftSlides slides = new LiftSlides(hardwareMap);
-        // Extendo instance
         Extendo pickmeup = new Extendo(hardwareMap);
-
-        // clampclaw instance
         ClampClaw imaTouchU = new ClampClaw(hardwareMap);
-        // claw verticle instance
         ClawMove ankel = new ClawMove(hardwareMap);
 
+        // vision here that outputs position
+        int visionOutputPosition = 1;
+
+
+        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
+                .lineToYSplineHeading(33, Math.toRadians(0))
+                .waitSeconds(2)
+                .setTangent(Math.toRadians(90))
+                .lineToY(48)
+                .setTangent(Math.toRadians(0))
+                .lineToX(32)
+                .strafeTo(new Vector2d(44.5, 30))
+                .turn(Math.toRadians(180))
+                .lineToX(47.5)
+                .waitSeconds(3);
+        TrajectoryActionBuilder tab2 = drive.actionBuilder(initialPose)
+                .lineToY(37)
+                .setTangent(Math.toRadians(0))
+                .lineToX(18)
+                .waitSeconds(3)
+                .setTangent(Math.toRadians(0))
+                .lineToXSplineHeading(46, Math.toRadians(180))
+                .waitSeconds(3);
+        TrajectoryActionBuilder tab3 = drive.actionBuilder(initialPose)
+                .lineToYSplineHeading(33, Math.toRadians(180))
+                .waitSeconds(2)
+                .strafeTo(new Vector2d(46, 30))
+                .waitSeconds(3);
+        Action trajectoryActionCloseOut = tab1.endTrajectory().fresh()
+                .strafeTo(new Vector2d(48, 12))
+                .build();
+
+        // actions that need to happen on init; for instance, a claw tightening.
+       // Actions.runBlocking(claw.closeClaw());
 
 
 
+        while (!isStopRequested() && !opModeIsActive()) {
+            int position = visionOutputPosition;
+            telemetry.addData("Position during Init", position);
+            telemetry.update();
+        }
 
-        Pose2d beginPose = new Pose2d(0, 0, Math.toRadians(90));
-        PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
+        int startPosition = visionOutputPosition;
+        telemetry.addData("Starting Position", startPosition);
+        telemetry.update();
         waitForStart();
-// my granny called she said travvy you work too har
 
+        if (isStopRequested()) return;
+
+        Action trajectoryActionChosen;
+        if (startPosition == 1) {
+            trajectoryActionChosen = tab1.build();
+        } else if (startPosition == 2) {
+            trajectoryActionChosen = tab2.build();
+        } else {
+            trajectoryActionChosen = tab3.build();
+        }
 
         Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActionChosen,
+                     //   LiftSlides.LiftDown(),
+                     //   lift.liftUp(),
+                     //   claw.openClaw(),
+                     //   lift.liftDown(),
+                        trajectoryActionCloseOut
+                )
+        );
 
-                drive.actionBuilder(beginPose)
+
+
+/*This is usin pinpoint from wat i know how to do erm keep commented for rn
+        Actions.runBlocking(
+
+                drive.actionBuilder(initialPose)
                         .strafeTo(new Vector2d(0, 46))
                         .strafeTo(new Vector2d(0, 25))
                         .turn(Math.toRadians(-90))
                         .strafeTo(new Vector2d(100,25))
 
-                        .build());
+                        .build()); */
+
 
     }
 }
