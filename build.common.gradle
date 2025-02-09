@@ -54,6 +54,8 @@ android {
         minSdkVersion 24
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 28
+        // this could cause an issue later keep in mind
+        multiDexEnabled true
 
         /**
          * We keep the versionCode and versionName of robot controller applications in sync with
@@ -105,8 +107,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
+        sourceCompatibility JavaVersion.VERSION_1_8 // was jave 21 for both if anything goes wrong with this
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     ndkVersion '21.3.6528147'
