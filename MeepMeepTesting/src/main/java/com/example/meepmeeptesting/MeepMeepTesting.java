@@ -12,14 +12,36 @@ public class MeepMeepTesting {
         MeepMeep meepMeep = new MeepMeep(800);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+
+                /* settin stuff for redleft auto, REMEMBER TO IMPLEMENT TURNS
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 13)
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-30, -61, 0))
+                        .strafeTo(new Vector2d(-45,-58)) */
+
+                // redright auto as of rn should get 3 specimin
+                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 13) //3, -62
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(3, -62, 0))
+                        //  .splineTo(new Vector2d(50.0, -55.0), 0.0)
                         .strafeTo(new Vector2d(3,-28))
-                        .waitSeconds(1)
-                        .strafeTo(new Vector2d(3, -35))
-                        .strafeTo(new Vector2d(35,-35))
-                        .strafeTo(new Vector2d(40, -12))
+                        .waitSeconds(.5)
+                        .strafeTo(new Vector2d(3, -30))
+                        .strafeTo(new Vector2d(35,-30))
+                        .strafeTo(new Vector2d(37, -12))
+                        .strafeTo(new Vector2d(47, -12))
+                        .turn(Math.toRadians(-90))
+                        .strafeTo(new Vector2d(50,-58))
+                        .strafeTo(new Vector2d(47,-12))
+                        .strafeTo(new Vector2d(58,-12))
+                        .strafeTo(new Vector2d(58,-60))
+                        .waitSeconds(.5)
+                        .turn(Math.toRadians(-180))
+                        .strafeTo(new Vector2d(3, -30))
+                        .waitSeconds(.5)
+                        .strafeTo(new Vector2d(40,-56))
+                        .turn(Math.toRadians(180))
+                        .strafeTo(new Vector2d(50,-56))
+                        .waitSeconds(.5)
+                        .strafeTo(new Vector2d(3,-30))
                         .build());
 
 
