@@ -19,20 +19,25 @@ public class MeepMeepTesting {
                         .strafeTo(new Vector2d(-45,-58)) */
 
                 // redright auto as of rn should get 3 specimin
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 13) //3, -62
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(3, -62, 0))
+                .setConstraints(80, 80, Math.toRadians(200), Math.toRadians(200), 13.5) //3, -62
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(5, -68, 0))
                         //  .splineTo(new Vector2d(50.0, -55.0), 0.0)
-                        .strafeTo(new Vector2d(3,-28))
+                        .strafeTo(new Vector2d(5,-25))
                         .waitSeconds(.5)
-                        .strafeTo(new Vector2d(3, -30))
-                        .strafeTo(new Vector2d(35,-30))
-                        .strafeTo(new Vector2d(37, -12))
-                        .strafeTo(new Vector2d(47, -12))
-                        .turn(Math.toRadians(-90))
+                        .strafeTo(new Vector2d(5, -30))
+                        .turn(Math.toRadians(-180))
+                        .strafeTo(new Vector2d(44,-30))
+                        .strafeTo(new Vector2d(44, 1))
+                        .strafeTo(new Vector2d(48,-62 ))
+                        .strafeTo(new Vector2d(47,1))
+                        .strafeTo(new Vector2d(57,-4.5))
+                        .strafeTo(new Vector2d())
+                     //   .strafeTo(new Vector2d(42, -12))
+                      /*  .turn(Math.toRadians(-90))
                         .strafeTo(new Vector2d(50,-58))
                         .strafeTo(new Vector2d(47,-12))
-                        .strafeTo(new Vector2d(58,-12))
-                        .strafeTo(new Vector2d(58,-60))
+                        .strafeTo(new Vector2d(55,-12))
+                        .strafeTo(new Vector2d(55,-60))
                         .waitSeconds(.5)
                         .turn(Math.toRadians(-180))
                         .strafeTo(new Vector2d(3, -30))
@@ -41,7 +46,7 @@ public class MeepMeepTesting {
                         .turn(Math.toRadians(180))
                         .strafeTo(new Vector2d(50,-56))
                         .waitSeconds(.5)
-                        .strafeTo(new Vector2d(3,-30))
+                        .strafeTo(new Vector2d(3,-30)) */
                         .build());
 
 

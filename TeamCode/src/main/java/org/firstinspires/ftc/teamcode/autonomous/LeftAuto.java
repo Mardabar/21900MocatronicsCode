@@ -25,7 +25,7 @@ public class LeftAuto extends LinearOpMode {
   private DcMotor Rlin;
   private DcMotor rotat;
   private IMU imu;
-  private DistanceSensor Sensor;
+  private DistanceSensor sensor;
   
   private Servo imaTouchU;
   private Servo ankel;
@@ -157,13 +157,13 @@ public class LeftAuto extends LinearOpMode {
     leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-      while (Sensor.getDistance(DistanceUnit.CM) > dist){
+      while (sensor.getDistance(DistanceUnit.CM) > dist){
         leftBack.setPower(-.25);
         leftFront.setPower(.25);
         rightBack.setPower(-.25);
         rightFront.setPower(.25);
-        telemetry.addData("Sensor", Sensor.getDeviceName() );
-        telemetry.addData("Distance (cm)", Sensor.getDistance(DistanceUnit.CM));
+        telemetry.addData("Sensor", sensor.getDeviceName() );
+        telemetry.addData("Distance (cm)", sensor.getDistance(DistanceUnit.CM));
         telemetry.update();
       } 
           leftBack.setPower(0);
@@ -358,7 +358,7 @@ public class LeftAuto extends LinearOpMode {
     imaTouchU = hardwareMap.get(Servo.class, "imaTouchU");
     ankel = hardwareMap.get(Servo.class, "ankel");
     
-    Sensor = hardwareMap.get(DistanceSensor.class, "Sensor");
+    sensor = hardwareMap.get(DistanceSensor.class, "Sensor");
     
     imu = hardwareMap.get(IMU.class, "imu");
     
@@ -384,14 +384,14 @@ public class LeftAuto extends LinearOpMode {
     maxRange = 28;
     imaTouchU.scaleRange(.2, .8);
     ankel.scaleRange(0, 1);
-    telemetry.addData("Sensor", Sensor.getDeviceName() );
+    telemetry.addData("Sensor", sensor.getDeviceName() );
     telemetry.update();
     
 
     waitForStart();
 
   while (opModeIsActive()) {
-    telemetry.addData("Distance (cm)", Sensor.getDistance(DistanceUnit.CM));
+    telemetry.addData("Distance (cm)", sensor.getDistance(DistanceUnit.CM));
     telemetry.update();
     ClampClaw(0.16, 0);
     SimulArmUp(1250);
