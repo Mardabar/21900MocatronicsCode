@@ -162,7 +162,7 @@ public class LeftAuto extends LinearOpMode {
         leftFront.setPower(.25);
         rightBack.setPower(-.25);
         rightFront.setPower(.25);
-        telemetry.addData("Sensor", sensor.getDeviceName() );
+        telemetry.addData("sensor", sensor.getDeviceName() );
         telemetry.addData("Distance (cm)", sensor.getDistance(DistanceUnit.CM));
         telemetry.update();
       } 
@@ -358,7 +358,7 @@ public class LeftAuto extends LinearOpMode {
     imaTouchU = hardwareMap.get(Servo.class, "imaTouchU");
     ankel = hardwareMap.get(Servo.class, "ankel");
     
-    sensor = hardwareMap.get(DistanceSensor.class, "Sensor");
+    sensor = hardwareMap.get(DistanceSensor.class, "sensor");
     
     imu = hardwareMap.get(IMU.class, "imu");
     
@@ -384,7 +384,7 @@ public class LeftAuto extends LinearOpMode {
     maxRange = 28;
     imaTouchU.scaleRange(.2, .8);
     ankel.scaleRange(0, 1);
-    telemetry.addData("Sensor", sensor.getDeviceName() );
+    telemetry.addData("sensor", sensor.getDeviceName() );
     telemetry.update();
     
 

@@ -418,7 +418,7 @@ public class RightAuto extends LinearOpMode {
     imaTouchU = hardwareMap.get(Servo.class, "imaTouchU");
     ankel = hardwareMap.get(Servo.class, "ankel");
     
-    sensor = hardwareMap.get(DistanceSensor.class, "Sensor");
+    sensor = hardwareMap.get(DistanceSensor.class, "sensor");
     
     imu = hardwareMap.get(IMU.class, "imu");
     
